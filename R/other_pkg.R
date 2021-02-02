@@ -2,6 +2,14 @@
 # AnnotationDbi), which is something that really should not happen with a sane
 # repository.
 # Anyway, that's why it is installed here
+
+# BiocManager and the packages required
+install.packages("BiocManager", repos=Sys.getenv("CRAN_MIRROR"))
+BiocManager::install(version = "3.10") # This version is suitable for R 3.6.1
+BiocManager::install("impute")
+BiocManager::install("AnnotationDbi")
+BiocManager::install("GO.db")
+
 required.packages <- c("WGCNA", "impute", "multtest", "CGHbase", "CGHtest",
 					   "CGHtestpar", "edgeR", "snpStats", "preprocessCore",
 					   "GO.db", "AnnotationDbi", "QDNAseq");
@@ -12,7 +20,10 @@ missing.packages <- function(required) {
 new.packages <- missing.packages(required.packages);
 if (!length(new.packages))
 	q();
-source("http://bioconductor.org/biocLite.R");
+
+# This no longer works for R 3.6.1. Use BiocManager instead (above)
+#source("http://bioconductor.org/biocLite.R");
+
 bioclite.packages <-
 		intersect(new.packages, c("impute", "multtest", "CGHbase", "edgeR",
 								  "snpStats", "preprocessCore", "GO.db",
@@ -22,11 +33,13 @@ if (length(bioclite.packages))
 # 1.10.0 version contains an important fix.
 # We still need to install the old package with biocLite first to install all dependencies.
 # For some reasons below installations does not take care of installing dependencies first.
+
+# Update to version 1.16 -> 1.26
 download.file(
-		url="http://bioconductor.org/packages/release/bioc/src/contrib/QDNAseq_1.16.0.tar.gz",
-		dest="/tmp/QDNAseq_1.16.0.tar.gz", method="internal");
-install.packages("/tmp/QDNAseq_1.16.0.tar.gz",
-		repos=NULL, type="source");
+                url="http://www.bioconductor.org/packages/release/bioc/src/contrib/QDNAseq_1.26.0.tar.gz",
+                dest="/tmp/QDNAseq_1.26.0.tar.gz", method="internal");
+install.packages("/tmp/QDNAseq_1.26.0.tar.gz",
+                repos=NULL, type="source");
 
 if (length(intersect(new.packages, c("CGHtest")))) {
 	download.file(
@@ -43,7 +56,14 @@ if (length(intersect(new.packages, c("CGHtestpar")))) {
 			repos=NULL, type="source")
 }
 if (length(intersect(new.packages, c("WGCNA")))) {
-	install.packages("WGCNA", repos=Sys.getenv("CRAN_MIRROR"));
+	# Install directly from tarball
+	if (length(intersect(new.packages, c("WGCNA")))) {
+        download.file(
+                        url="http://cran.r-project.org/src/contrib/WGCNA_1.69.tar.gz",
+                        dest="/tmp/WGCNA_1.69.tar.gz", method="internal");
+        install.packages("/tmp/WGCNA_1.69.tar.gz",
+                        repos=NULL, type="source")
+	}
 }
 
 if (length(missing.packages(required.packages))) {
