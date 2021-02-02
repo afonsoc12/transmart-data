@@ -45,7 +45,7 @@ createdb:
 	test `$(PSQL_COMMAND) -d template1 -c "select exists (select datname from pg_database where datname = '$(PGDATABASE)')" -tA` \
 			= 'f' || (echo -e "\e[31mERROR\e[m: Database $(PGDATABASE) already exists or connection error"; false)
 	$(PSQL_COMMAND) -d template1 -c "CREATE DATABASE $(PGDATABASE) TEMPLATE template0 \
-			ENCODING='UTF-8' LC_COLLATE='en_US.UTF-8'"
+			ENCODING='UTF-8' LC_COLLATE='en_GB.UTF-8'"
 
 # Don't depend on the SQL file, otherwise make'll try to create it
 load_%:
