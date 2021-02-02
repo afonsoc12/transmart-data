@@ -1,3 +1,10 @@
+# This package is from Cran but needs to be downgraded 
+download.file(
+	url="http://cran.r-project.org/src/contrib/Archive/foreign/foreign_0.8-72.tar.gz",
+	dest="/tmp/foreign_0.8-72.tar.gz", method="internal");
+install.packages("/tmp/foreign_0.8-72.tar.gz",
+	repos=NULL, type="source")
+	
 # WCGNA is in CRAN but depends on several packages not in cran (impute, GO.db,
 # AnnotationDbi), which is something that really should not happen with a sane
 # repository.
@@ -23,9 +30,17 @@ BiocManager::install("dynamicTreeCut")
 BiocManager::install("fastcluster")
 BiocManager::install("jpeg")
 BiocManager::install("latticeExtra")
-BiocManager::install("foreign")
 BiocManager::install("Hmisc")
-BiocManager::install("preprocessCore ")
+BiocManager::install("preprocessCore")
+BiocManager::install("snpStats")
+BiocManager::install("multtest")
+BiocManager::install("edgeR")
+
+# 1.10.0 version contains an important fix.
+# We still need to install the old package with biocLite first to install all dependencies.
+# For some reasons below installations does not take care of installing dependencies first.
+# Update to version 1.16 -> 1.26
+BiocManager::install("QDNAseq")
 
 required.packages <- c("WGCNA", "impute", "multtest", "CGHbase", "CGHtest",
 					   "CGHtestpar", "edgeR", "snpStats", "preprocessCore",
@@ -46,17 +61,6 @@ if (!length(new.packages))
 #								  "AnnotationDbi", "QDNAseq"));
 #if (length(bioclite.packages))
 #	biocLite(bioclite.packages);
-
-# 1.10.0 version contains an important fix.
-# We still need to install the old package with biocLite first to install all dependencies.
-# For some reasons below installations does not take care of installing dependencies first.
-
-# Update to version 1.16 -> 1.26
-download.file(
-                url="http://www.bioconductor.org/packages/release/bioc/src/contrib/QDNAseq_1.26.0.tar.gz",
-                dest="/tmp/QDNAseq_1.26.0.tar.gz", method="internal");
-install.packages("/tmp/QDNAseq_1.26.0.tar.gz",
-                repos=NULL, type="source");
 
 if (length(intersect(new.packages, c("CGHtest")))) {
 	download.file(
