@@ -9,6 +9,23 @@ BiocManager::install(version = "3.10") # This version is suitable for R 3.6.1
 BiocManager::install("impute")
 BiocManager::install("AnnotationDbi")
 BiocManager::install("GO.db")
+BiocManager::install("CGHbase")
+BiocManager::install("CGHcall")
+BiocManager::install("DNAcopy")
+BiocManager::install("GenomicRanges")
+BiocManager::install("matrixStats")
+BiocManager::install("R.utils")
+BiocManager::install("Rsamtools")
+BiocManager::install("future")
+BiocManager::install("future.apply")
+BiocManager::install("survival")
+BiocManager::install("dynamicTreeCut")
+BiocManager::install("fastcluster")
+BiocManager::install("jpeg")
+BiocManager::install("latticeExtra")
+BiocManager::install("foreign")
+BiocManager::install("Hmisc")
+BiocManager::install("preprocessCore ")
 
 required.packages <- c("WGCNA", "impute", "multtest", "CGHbase", "CGHtest",
 					   "CGHtestpar", "edgeR", "snpStats", "preprocessCore",
@@ -23,13 +40,13 @@ if (!length(new.packages))
 
 # This no longer works for R 3.6.1. Use BiocManager instead (above)
 #source("http://bioconductor.org/biocLite.R");
+#bioclite.packages <-
+#		intersect(new.packages, c("impute", "multtest", "CGHbase", "edgeR",
+#								  "snpStats", "preprocessCore", "GO.db",
+#								  "AnnotationDbi", "QDNAseq"));
+#if (length(bioclite.packages))
+#	biocLite(bioclite.packages);
 
-bioclite.packages <-
-		intersect(new.packages, c("impute", "multtest", "CGHbase", "edgeR",
-								  "snpStats", "preprocessCore", "GO.db",
-								  "AnnotationDbi", "QDNAseq"));
-if (length(bioclite.packages))
-	biocLite(bioclite.packages);
 # 1.10.0 version contains an important fix.
 # We still need to install the old package with biocLite first to install all dependencies.
 # For some reasons below installations does not take care of installing dependencies first.
