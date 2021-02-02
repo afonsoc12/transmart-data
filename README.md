@@ -3,6 +3,8 @@ transmart-data
 
 [![Build Status](https://travis-ci.org/transmart/transmart-data.svg?branch=master)](https://travis-ci.org/transmart/transmart-data)
 
+**Note:** For version v16.3 of tranSMART, please clone repository and checkout to branch [`release-16.3`](https://github.com/tranSMART-Foundation/transmart-data/tree/release-16.3)
+
 Introduction
 ------------
 
